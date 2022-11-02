@@ -2,6 +2,25 @@
 #include <vector>
 using namespace std;
 
+template <class T>
+class Stack;
+
+template <class T>
+Stack<T> operator+(Stack<T> c1, Stack<T> c2)
+{
+    Stack<T> temp;
+    temp.v = c2.v;
+    temp.topIndex = c2.topIndex;
+
+    Stack<T> result;
+    result.v = c1.v;
+    result.topIndex = c1.topIndex;
+    for (int i = 0; i < temp.topIndex; i++)
+    {
+        temp.push(temp.pop);
+    }
+    return temp;
+}
 template <typename T>
 class Stack
 {
@@ -41,6 +60,8 @@ public:
     //     will return the top element of the stack
     //     if the stack is empty then return the top element of the stack which will be 0
     T top();
+
+    friend Stack<T> operator+(Stack<T> c1, Stack<T> c2);
 
 private:
     vector<T> v;
@@ -111,17 +132,57 @@ T Stack<T>::top()
     return v[topIndex];
 }
 
+template <typename T>
+Stack<T> operator+(Stack<T> c1, Stack<T> c2)
+{
+    Stack<T> temp;
+    temp.v = c2.v;
+    temp.topIndex = c2.topIndex;
+
+    Stack<T> result;
+    result.v = c1.v;
+    result.topIndex = c1.topIndex;
+    for (int i = 0; i < temp.topIndex; i++)
+    {
+        temp.push(temp.pop);
+    }
+    return temp;
+}
+
 // a test driver for stack
 int main(int argc, char const *argv[])
 {
-    Stack<int> stack;
-    stack.push(1);
-    stack.push(2);
-    cout << stack.top() << endl;
-    cout << stack.empty() << endl;
-    cout << stack.pop() << endl;
-    cout << stack.top() << endl;
-    cout << stack.pop() << endl;
-    cout << stack.pop() << endl;
-    cout << stack.empty() << endl;
+    Stack<int> stack1;
+    stack1.push(1);
+    stack1.push(2);
+    stack1.push(3);
+    stack1.push(4);
+    stack1.push(5);
+    stack1.push(6);
+
+    Stack<int> stack2;
+    stack2.push(7);
+    stack2.push(8);
+    stack2.push(9);
+    stack2.push(10);
+    stack2.push(11);
+
+    Stack<int> stack3;
+    stack3 = stack1 + stack2;
+    cout << stack3.top() << endl;
+    cout << stack3.pop() << endl;
+    cout << stack3.pop() << endl;
+    cout << stack3.pop() << endl;
+    cout << stack3.pop() << endl;
+    cout << stack3.pop() << endl;
+    cout << stack3.pop() << endl;
+    cout << stack3.pop() << endl;
+
+    // cout << stack1.top() << endl;
+    // cout << stack1.empty() << endl;
+    // cout << stack1.pop() << endl;
+    // cout << stack1.top() << endl;
+    // cout << stack1.pop() << endl;
+    // cout << stack1.pop() << endl;
+    // cout << stack1.empty() << endl;
 }
