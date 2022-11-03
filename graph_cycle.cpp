@@ -7,16 +7,29 @@
 
 using namespace std;
 
+// extending the graph class
 class GraphCycle : public Graph
 {
 public:
+    // constructor
+    // inherited from graph class constructor
     GraphCycle(const vector<int> &starts, const vector<int> &ends) : Graph(starts, ends) {}
+
+    // require:
+    //      - the graph class to be connected
+    // effect:
+    //      - return a vector containing the cycle nodes
+    //      - if the graph is Asyclc-- no cycle, then it will return an empty vector
     vector<int> hasCycle();
 
 private:
+    // helper functions for has cycle
     vector<int> hasCycle(int node, vector<bool> &visited, vector<int> &path);
     vector<int> hasCycleUtil(int node, vector<bool> &visited, vector<int> &path, int i, vector<int> &list);
 };
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
 vector<int> GraphCycle::hasCycle()
 {
@@ -25,12 +38,15 @@ vector<int> GraphCycle::hasCycle()
     vector<int> cycle;
     return hasCycle(outgoing.begin()->first, vistedC, pathC);
 }
+
+// ------------------------------------------------------------------------------------------------
+
 vector<int> GraphCycle::hasCycle(int node, vector<bool> &visited, vector<int> &path)
 {
     visited[node] = true;
     vector<int> list;
     path.push_back(node);
-    for (int i = 0; i < Graph::outgoing[node].size(); i++) // for every node that it adjacent to that node
+    for (int i = 0; i < Graph::outgoing[node].size(); i++)
     {
         if (!visited[outgoing[node][i]])
             list = hasCycle(outgoing[node][i], visited, path);
@@ -39,6 +55,8 @@ vector<int> GraphCycle::hasCycle(int node, vector<bool> &visited, vector<int> &p
     }
     return path;
 }
+
+// ------------------------------------------------------------------------------------------------
 
 vector<int> GraphCycle::hasCycleUtil(int node, vector<bool> &visited, vector<int> &path, int i, vector<int> &list)
 {
@@ -55,6 +73,9 @@ vector<int> GraphCycle::hasCycleUtil(int node, vector<bool> &visited, vector<int
     }
     return list;
 }
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
 int main()
 {
