@@ -115,7 +115,7 @@ void btree<T>::addNode(T key)
     node->left = NULL;
     node->right = NULL;
 
-    // If the tree is empty, insert root node.
+    // insert root node if empty
     if (this->root == NULL)
     {
         this->root = node;

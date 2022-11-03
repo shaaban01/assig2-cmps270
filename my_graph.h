@@ -1,3 +1,4 @@
+// header file for the extending of graph in graph_cycle,cpp
 #include <iostream>
 #include <iterator>
 #include <map>
@@ -76,43 +77,3 @@ int Graph::numNodes() const
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
-
-// test driver
-int main()
-{
-    vector<int> start;
-    vector<int> end;
-    start = {0, 0, 0, 4, 4, 3};
-    end = {1, 2, 3, 3, 1, 1};
-
-    Graph g(start, end);
-    vector<int> vec;
-    vec = g.adjacent(0);
-    cout << "Number of outgoing edges from 0: " << g.numOutgoing(0) << endl;
-    cout << "The outgoing edges from 0 are: ";
-    for (int i = 0; i < vec.size(); i++)
-    {
-        cout << vec[i] << " ";
-    }
-    cout << endl;
-    cout << endl;
-    vec = g.adjacent(4);
-    cout << "Number of outgoing edges from 4: " << g.numOutgoing(4) << endl;
-    cout << "The outgoing edges from 4 are: ";
-    for (int i = 0; i < vec.size(); i++)
-    {
-        cout << vec[i] << " ";
-    }
-    cout << endl;
-    cout << endl;
-
-    vec = g.adjacent(3);
-    cout << "Number of outgoing edges from 3: " << g.numOutgoing(3) << endl;
-    cout << "The outgoing edges from 3 are: ";
-    for (int i = 0; i < vec.size(); i++)
-    {
-        cout << vec[i] << " ";
-    }
-    cout << endl;
-    cout << endl;
-}
