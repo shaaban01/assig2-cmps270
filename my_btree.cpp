@@ -11,6 +11,8 @@ struct treeNode
     struct treeNode *parent;
 };
 
+// ----------------------------------------------------------------
+
 template <typename T>
 class btree
 {
@@ -62,6 +64,7 @@ public:
 
 private:
     // helper functions
+
     void destroy_tree(treeNode<T> *leaf);
     treeNode<T> *findNode(treeNode<T> *node, T val);
     int count(treeNode<T> *node);
@@ -73,6 +76,10 @@ private:
     treeNode<T> *last; // stores the last added node
     int size;          // stores the size of the tree
 };
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
 template <typename T>
 btree<T>::btree()
 {
@@ -85,6 +92,7 @@ btree<T>::~btree()
 {
     destroy_tree(root);
 }
+
 template <typename T>
 void btree<T>::destroy_tree(treeNode<T> *leaf)
 {
@@ -95,6 +103,8 @@ void btree<T>::destroy_tree(treeNode<T> *leaf)
         delete leaf;
     }
 }
+
+// ----------------------------------------------------------------
 
 template <typename T>
 void btree<T>::addNode(T key)
@@ -171,11 +181,15 @@ void btree<T>::addNode(T key)
     node->right = NULL;
 }
 
+// ----------------------------------------------------------------
+
 template <typename T>
 int btree<T>::treeSize()
 {
     return this->size;
 }
+
+// ----------------------------------------------------------------
 
 template <typename T>
 int btree<T>::subtreeSize(T key)
@@ -209,6 +223,8 @@ treeNode<T> *btree<T>::findNode(treeNode<T> *node, T val)
     return node2;
 }
 
+// ----------------------------------------------------------------
+
 template <typename T>
 void btree<T>::deleteNode(T key)
 {
@@ -226,6 +242,8 @@ void btree<T>::deleteNode(T key)
     else
         cout << "CANNOT DELETE NODE" << endl;
 }
+
+// ----------------------------------------------------------------
 
 template <typename T>
 void btree<T>::postOrderPrint()
@@ -292,6 +310,9 @@ void btree<T>::inOrderPrint(treeNode<T> *node)
     /* now recur on right child */
     inOrderPrint(node->right);
 }
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 // test driver
 int main()

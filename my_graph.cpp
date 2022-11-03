@@ -11,10 +11,24 @@ protected:
     map<int, vector<int>> outgoing;
 
 public:
+    // constructor for graph
+    // require: two vectors of each starting and ending vertex
+    // effect: create the graph with the inputed data
     Graph(const vector<int> &starts, const vector<int> &ends);
+
+    // to get the number of the outgoing edges
+    // require: the node to be in the graph
+    // effect: return the number of the outgoing edges
     int numOutgoing(const int nodeID) const;
+
+    // adjacent nodes
+    // require: the node to be in the graph
+    // effect: return the adjacent nodes of the node
     const vector<int> &adjacent(const int nodeID) const;
 };
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 Graph::Graph(const vector<int> &starts, const vector<int> &ends)
 {
@@ -30,10 +44,16 @@ Graph::Graph(const vector<int> &starts, const vector<int> &ends)
         outgoing[end]; // Just to indicate this node exists
     }
 }
+
+// ----------------------------------------------------------------
+
 int Graph ::numOutgoing(const int nodeID) const
 {
     return adjacent(nodeID).size();
 }
+
+// ----------------------------------------------------------------
+
 const vector<int> &Graph ::adjacent(const int nodeID) const
 {
     map<int, vector<int>>::const_iterator i = outgoing.find(nodeID);
@@ -44,7 +64,10 @@ const vector<int> &Graph ::adjacent(const int nodeID) const
     return i->second;
 }
 
-// driver test
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+
+// test driver
 int main()
 {
     vector<int> start;

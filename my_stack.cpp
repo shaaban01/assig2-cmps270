@@ -2,29 +2,13 @@
 #include <vector>
 using namespace std;
 
-template <class T>
-class Stack;
-
-template <class T>
-Stack<T> operator+(Stack<T> c1, Stack<T> c2)
-{
-    Stack<T> temp;
-    temp.v = c2.v;
-    temp.topIndex = c2.topIndex;
-
-    Stack<T> result;
-    result.v = c1.v;
-    result.topIndex = c1.topIndex;
-    for (int i = 0; i < temp.topIndex; i++)
-    {
-        temp.push(temp.pop);
-    }
-    return temp;
-}
 template <typename T>
 class Stack
 {
 public:
+    template <typename O>
+    friend Stack<O> operator+(Stack<O> &c1, Stack<O> &c2);
+
     // Stack constructor
     Stack();
 
@@ -61,12 +45,13 @@ public:
     //     if the stack is empty then return the top element of the stack which will be 0
     T top();
 
-    friend Stack<T> operator+(Stack<T> c1, Stack<T> c2);
-
 private:
     vector<T> v;
     int topIndex;
 };
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 template <typename T>
 Stack<T>::Stack()
@@ -82,6 +67,8 @@ Stack<T>::~Stack()
     v.clear();
 }
 
+// ----------------------------------------------------------------
+
 template <typename T>
 bool Stack<T>::empty()
 {
@@ -89,6 +76,8 @@ bool Stack<T>::empty()
         return true;
     return false;
 }
+
+// ----------------------------------------------------------------
 
 template <typename T>
 void Stack<T>::push(T key)
@@ -102,6 +91,8 @@ void Stack<T>::push(T key)
     // adding the key to the stack
     v[++topIndex] = key;
 }
+
+// ----------------------------------------------------------------
 
 template <typename T>
 T Stack<T>::pop()
@@ -126,28 +117,38 @@ T Stack<T>::pop()
     return key;
 }
 
+// ----------------------------------------------------------------
+
 template <typename T>
 T Stack<T>::top()
 {
     return v[topIndex];
 }
 
-template <typename T>
-Stack<T> operator+(Stack<T> c1, Stack<T> c2)
+// ----------------------------------------------------------------
+
+template <typename O>
+Stack<O> operator+(Stack<O> &c1, Stack<O> &c2)
 {
-    Stack<T> temp;
+    Stack<O> temp;
     temp.v = c2.v;
     temp.topIndex = c2.topIndex;
-
-    Stack<T> result;
+    Stack<O> result;
     result.v = c1.v;
     result.topIndex = c1.topIndex;
     for (int i = 0; i < temp.topIndex; i++)
     {
-        temp.push(temp.pop);
+        cout << "result: " << result.top() << endl;
+        cout << "temp: " << temp.top() << endl;
+        result.push(temp.pop());
+        cout << "result: " << result.top() << endl;
+        cout << "temp: " << temp.top() << endl;
     }
-    return temp;
+    return result;
 }
+
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
 // a test driver for stack
 int main(int argc, char const *argv[])
@@ -169,7 +170,6 @@ int main(int argc, char const *argv[])
 
     Stack<int> stack3;
     stack3 = stack1 + stack2;
-    cout << stack3.top() << endl;
     cout << stack3.pop() << endl;
     cout << stack3.pop() << endl;
     cout << stack3.pop() << endl;
